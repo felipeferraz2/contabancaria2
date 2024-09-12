@@ -1,72 +1,43 @@
-public class Conta {
-    // Atributos privados
-    private String nomeTitular;
-    private int numero;
-    private String agencia;
-    private double saldo;
+import java.util.Scanner;
 
-    // Construtor
-    public Conta(String nomeTitular, int numero, String agencia, double saldoInicial) {
-        this.nomeTitular = nomeTitular;
-        this.numero = numero;
-        this.agencia = agencia;
-        this.saldo = saldoInicial;
-    }
+public class TestaConta {
+    public static void main(String[] args) {
+        // Scanner para capturar dados do usuário
+        Scanner scanner = new Scanner(System.in);
 
-    // Métodos
-    public void sacar(double valor) {
-        if (saldo >= valor) {
-            saldo -= valor;
-            System.out.println("Saque realizado. Novo saldo: " + saldo);
-        } else {
-            System.out.println("Saldo insuficiente.");
-        }
-    }
+        // Entrada de dados para a criação da conta
+        System.out.print("Digite o nome do titular: ");
+        String nome = scanner.nextLine();
 
-    public void depositar(double valor) {
-        saldo += valor;
-        System.out.println("Depósito realizado. Novo saldo: " + saldo);
-    }
+        System.out.print("Digite o número da conta: ");
+        int numero = scanner.nextInt();
 
-    public double calcularRendimento() {
-        return saldo * 0.1;  // Rendimento de 10%
-    }
+        System.out.print("Digite a agência: ");
+        String agencia = scanner.next();
 
-    // Método para recuperar os dados para impressão
-    public String recuperaDadosParaImpressao() {
-        return "Titular: " + nomeTitular + "\nNúmero da Conta: " + numero + "\nAgência: " + agencia + "\nSaldo: " + saldo;
-    }
+        System.out.print("Digite o saldo inicial: ");
+        double saldoInicial = scanner.nextDouble();
 
-    // Getters e setters necessários
-    public String getNomeTitular() {
-        return nomeTitular;
-    }
+        // Criação de um objeto Conta
+        Conta conta = new Conta(nome, numero, agencia, saldoInicial);
 
-    public void setNomeTitular(String nomeTitular) {
-        this.nomeTitular = nomeTitular;
-    }
+        // Movimentação: Saque e Depósito
+        System.out.print("Digite o valor a ser sacado: ");
+        double valorSaque = scanner.nextDouble();
+        conta.sacar(valorSaque);
 
-    public int getNumero() {
-        return numero;
-    }
+        System.out.print("Digite o valor a ser depositado: ");
+        double valorDeposito = scanner.nextDouble();
+        conta.depositar(valorDeposito);
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
+        // Cálculo de rendimento
+        double rendimento = conta.calcularRendimento();
+        System.out.println("Rendimento mensal da conta: R$ " + rendimento);
 
-    public String getAgencia() {
-        return agencia;
-    }
+        // Recuperação e impressão dos dados
+        System.out.println("\nDados atualizados da conta:");
+        System.out.println(conta.recuperaDadosParaImpressao());
 
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+        scanner.close();
     }
 }
